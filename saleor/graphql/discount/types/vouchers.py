@@ -12,7 +12,7 @@ from ...core.context import (
     ChannelQsContext,
     get_database_connection_name,
 )
-from ...core.descriptions import DEPRECATED_IN_3X_INPUT, PREVIEW_FEATURE
+from ...core.descriptions import ADDED_IN_324, DEPRECATED_IN_3X_INPUT, PREVIEW_FEATURE
 from ...core.doc_category import DOC_CATEGORY_DISCOUNTS
 from ...core.fields import ConnectionField, PermissionsField
 from ...core.scalars import DateTime
@@ -84,6 +84,9 @@ class VoucherCodeCountableConnection(CountableConnection):
 class Voucher(ChannelContextType[models.Voucher]):
     id = graphene.GlobalID(required=True, description="The ID of the voucher.")
     name = graphene.String(description="The name of the voucher.")
+    external_reference = graphene.String(
+        description=f"External ID of this voucher.{ADDED_IN_324}"
+    )
     codes = ConnectionField(
         VoucherCodeCountableConnection,
         description="List of codes available for this voucher.",

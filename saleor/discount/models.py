@@ -16,7 +16,7 @@ from ..app.models import App
 from ..channel.models import Channel
 from ..core.db.fields import MoneyField, SanitizedJSONField
 from ..core.editorjs import clean_editorjs
-from ..core.models import ModelWithMetadata
+from ..core.models import ModelWithExternalReference, ModelWithMetadata
 from ..core.utils.json_serializer import CustomJsonEncoder
 from ..core.utils.translations import Translation
 from ..permission.enums import DiscountPermissions
@@ -96,7 +96,7 @@ class VoucherQueryset(models.QuerySet["Voucher"]):
 VoucherManager = models.Manager.from_queryset(VoucherQueryset)
 
 
-class Voucher(ModelWithMetadata):
+class Voucher(ModelWithMetadata, ModelWithExternalReference):
     type = models.CharField(
         max_length=20, choices=VoucherType.CHOICES, default=VoucherType.ENTIRE_ORDER
     )
